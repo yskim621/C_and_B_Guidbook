@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 탭 생성 -->
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:id="@+id/host">
+
+    <!-- 탭 위젯 영역과 콘텐츠 영역의 위치를 설정 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--탭 위젯 영역 -->
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#d6d6d6"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@android:id/tabcontent">
+            
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="Trumpcard"
+                android:textSize="30dp"
+                android:id="@+id/tab1"/>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="Hwatu"
+                android:textSize="30dp"
+                android:id="@+id/tab2"/>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="Boardgame"
+                android:textSize="30dp"
+                android:id="@+id/tab3"/>
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>
