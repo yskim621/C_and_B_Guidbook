@@ -5,28 +5,72 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TabHost;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
+    ListView trumpcardlistview;
+    //출력할 데이터
+    ArrayList<Map<String, Object>> data;
+    ArrayAdapter<String> adapter;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        trumpcardlistview = (ListView)findViewById(R.id.trumpcardlistview);
+        data = new ArrayList<>();
+
         //TabHost 찾아오기
         TabHost host = (TabHost)findViewById(R.id.host);
+
         //탭 설정 시작
         host.setup();
 
         //첫번째 탭 설정
         TabHost.TabSpec spec = host.newTabSpec("탭1");
         spec.setIndicator(null, ResourcesCompat.getDrawable(getResources(), R.drawable.trumpcard, null));
-        spec.setContent(R.id.tab1);
+        spec.setContent(R.id.trumpcardlistview);
         host.addTab(spec);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("image", R.drawable.poker);
+        map.put("title", "Poker");
+        map.put("content", "5개 패의 족보가 가장 높은 사람이 승리하는 게임");
+        data.add(map);
+
+        map = new HashMap<>();
+        map.put("image", R.drawable.black_jack);
+        map.put("title", "Black_jack");
+        map.put("content", "21에 가장 근접한 자가 이기는 게임");
+        data.add(map);
+
+        map = new HashMap<>();
+        map.put("image", R.drawable.bacara);
+        map.put("title", "Bacara");
+        map.put("content", "2팀으로 나누어 베팅하며 낮은 수를 가진 팀이 승리");
+        data.add(map);
+
+        map = new HashMap<>();
+        map.put("image", R.drawable.hoola);
+        map.put("title", "Hoola");
+        map.put("content", "모든 카드를 다 드랍하면 이기는 게임");
+        data.add(map);
+
+        //어댑터 생성
+        CardAdapter adapter = new CardAdapter(this, data);
+
+
+        trumpcardlistview.setAdapter(adapter);
 
         //새로운 탭 생성
         spec = host.newTabSpec("탭2");
