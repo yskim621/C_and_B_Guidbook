@@ -36,6 +36,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Stack;
 
+
 public class Board extends AppCompatActivity {
     ProgressBar ind;
 
@@ -48,8 +49,6 @@ public class Board extends AppCompatActivity {
 
     private Button btnsearch, btnnext;
 
-    //private TextView list;
-
     private ListView listView;
     private List<Boardtbl> list;
     private ArrayAdapter<Boardtbl> boardAdapter;
@@ -59,19 +58,16 @@ public class Board extends AppCompatActivity {
 
     //페이지 번호와 페이지 당 데이터 개수를 저장할 변수
     int pageNo = 1;
-    int size = 3;
+    int size = 5;
 
     //조건에 맞는 데이터 개수를 저장할 변수
     int cnt;
 
-    //출력할 내용
-    String result = "";
 
     //스레드가 다운로드 받아서 파싱한 결과를 출력할 핸들러
     Handler handler = new Handler(Looper.getMainLooper()){
         @Override
         public void handleMessage(Message message){
-            //list.setText(result);
 
             // adapter를 이용해서 Listview에 데이터가 수정되면 다시 출력하도록 [신호를 보냄 - notification]
             boardAdapter.notifyDataSetChanged();
@@ -94,12 +90,12 @@ public class Board extends AppCompatActivity {
                     url = new URL("http://yskim621.cafe24.com/board/select?" +
                                     "pageno=" + pageNo);
                 }else if(idx == 1){
-                    url = new URL("http://yskim621.cafe24.com/board/select?" + "searchtype=itemname&" + "value=" +
+                    url = new URL("http://yskim621.cafe24.com/board/select?" + "searchtype=membernickname&" + "value=" +
                                     value.getText().toString() + "&pageno="
                                     +pageNo
                     );
                 }else if(idx == 2){
-                    url = new URL("http://yskim621.cafe24.com/board/select?" + "searchtype=description&" + "value=" +
+                    url = new URL("http://yskim621.cafe24.com/board/select?" + "searchtype=boardtitle&" + "value=" +
                                     value.getText().toString() + "&pageno="
                                     +pageNo
                     );
@@ -134,15 +130,15 @@ public class Board extends AppCompatActivity {
                 //list 키의 데이터를 배열로 가져오기
                 JSONArray ar = object.getJSONArray("list");
                 for(int i=0; i<ar.length(); i=i+1){
-                    JSONArray temp = ar.getJSONArray(i);
+                    JSONObject temp = ar.getJSONObject(i);
                     // result = result + temp.getString(1) + "\n";
                     Boardtbl boardtbl = new Boardtbl();
-                    boardtbl.boardnum = temp.getInt(0);
-                    boardtbl.boardtitle = temp.getString(1);
-                    boardtbl.boardwritedate = temp.getString(2);
-                    boardtbl.boardreadcnt = temp.getInt(3);
-                    boardtbl.boardattachment = temp.getString(4);
-                    boardtbl.membernickname = temp.getString(5);
+                    boardtbl.boardnum = temp.getInt("boardnum");
+                    boardtbl.boardtitle = temp.getString("boardtitle");
+                    boardtbl.boardcontent = temp.getString("boardcontent");
+                    boardtbl.boardwritedate = temp.getString("boardwritedate");
+                    boardtbl.boardattachment = temp.getString("boardattachment");
+                    boardtbl.membernickname = temp.getString("membernickname");
 
                     list.add(boardtbl);
                     // 이메일과 같이 최신 데이터를 위에서 붙여서 이전 데이터를 밑으로 누르는 방식으로 데이터를 추가하기 위해서는
@@ -168,9 +164,7 @@ public class Board extends AppCompatActivity {
 
 
         searchtype = (Spinner)findViewById(R.id.searchtype);
-        adapter = ArrayAdapter.createFromResource(this, R.array.searchtype_array,
-                android.R.layout.simple_spinner_dropdown_item
-        );
+        adapter = ArrayAdapter.createFromResource(this, R.array.searchtype_array, android.R.layout.simple_spinner_dropdown_item);
         searchtype.setAdapter(adapter);
 
         value = (EditText)findViewById(R.id.value);
@@ -200,7 +194,7 @@ public class Board extends AppCompatActivity {
                 //하위 Activity 출력
                 Intent intent = new Intent(Board.this, BoardDetail.class);
 
-                //데이터 전달하기 - itemid를 전달
+                //데이터 전달하기 - boardnum 전달
                 intent.putExtra("boardnum", boardtbl.boardnum);
 
                 //액티비티 호출
@@ -274,7 +268,6 @@ public class Board extends AppCompatActivity {
         btnsearch.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 pageNo = 1;
-                //result = "";
 
                 // List를 초기화해서 ListView를 초기화
                 list.clear();
