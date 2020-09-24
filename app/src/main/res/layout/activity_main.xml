@@ -28,18 +28,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/trumpcardlistview"/>
-            <TextView
+            <ListView
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:text="Hwatu"
-                android:textSize="30dp"
-                android:id="@+id/tab2"/>
-            <TextView
+                android:id="@+id/hwatulistview"/>
+            <ListView
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:text="Boardgame"
-                android:textSize="30dp"
-                android:id="@+id/tab3"/>
+                android:id="@+id/boardgamelistview"/>
         </FrameLayout>
     </LinearLayout>
 </TabHost>
