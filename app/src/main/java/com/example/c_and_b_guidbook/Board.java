@@ -39,6 +39,7 @@ import java.util.Stack;
 
 public class Board extends AppCompatActivity {
     ProgressBar ind;
+    Button btnwrite;
 
     // 스크롤이 가장 아래에서 수행되었는지 확인할 변수
     boolean lastItemVisibleFlag = false;
@@ -161,7 +162,7 @@ public class Board extends AppCompatActivity {
 
 
         ind = (ProgressBar) findViewById(R.id.progressind);
-
+        btnwrite = (Button) findViewById(R.id.btnwrite);
 
         searchtype = (Spinner)findViewById(R.id.searchtype);
         adapter = ArrayAdapter.createFromResource(this, R.array.searchtype_array, android.R.layout.simple_spinner_dropdown_item);
@@ -259,19 +260,28 @@ public class Board extends AppCompatActivity {
         });
 
         btnnext.setOnClickListener(new Button.OnClickListener(){
-            public void onClick(View v){
+            public void onClick(View view){
                 pageNo = pageNo + 1;
                 new ThreadEx().start();
             }
         });
 
         btnsearch.setOnClickListener(new Button.OnClickListener(){
-            public void onClick(View v){
+            public void onClick(View view){
                 pageNo = 1;
 
                 // List를 초기화해서 ListView를 초기화
                 list.clear();
                 new ThreadEx().start();
+            }
+        });
+
+        btnwrite.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Board.this, BoardInsert.class);
+
+                startActivity(intent);
             }
         });
     }
