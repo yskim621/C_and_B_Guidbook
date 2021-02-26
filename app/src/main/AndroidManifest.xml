@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".BoardInsert"></activity>
+        <activity android:name=".Content"/>
+        <activity android:name=".BoardInsert" />
         <activity android:name=".BoardDetail" />
         <activity android:name=".SignIn" />
         <activity android:name=".SignUp" />

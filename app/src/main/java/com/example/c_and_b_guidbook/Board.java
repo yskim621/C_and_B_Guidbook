@@ -88,23 +88,13 @@ public class Board extends AppCompatActivity {
                 //콤보 박스 선택한 항목 번호를 idx에 저장
                 int idx = searchtype.getSelectedItemPosition();
                 if(idx == 0){
-                    url = new URL("http://yskim621.cafe24.com/board/select?" +
-                                    "pageno=" + pageNo);
+                    url = new URL("http://yskim621.cafe24.com/board/select/" + pageNo);
                 }else if(idx == 1){
-                    url = new URL("http://yskim621.cafe24.com/board/select?" + "searchtype=membernickname&" + "value=" +
-                                    value.getText().toString() + "&pageno="
-                                    +pageNo
-                    );
+                    url = new URL("http://yskim621.cafe24.com/board/select/" + pageNo +"?searchtype=membernickname&" + "value=" + value.getText().toString());
                 }else if(idx == 2){
-                    url = new URL("http://yskim621.cafe24.com/board/select?" + "searchtype=boardtitle&" + "value=" +
-                                    value.getText().toString() + "&pageno="
-                                    +pageNo
-                    );
-                }else{
-                    url = new URL("http://yskim621.cafe24.com/board/select?" + "searchtype=both&" + "value=" +
-                                    value.getText().toString() + "&pageno="
-                                    +pageNo
-                    );
+                    url = new URL("http://yskim621.cafe24.com/board/select/" + pageNo + "?searchtype=boardtitle&" + "value=" + value.getText().toString());
+                } else {
+                    url = new URL("http://yskim621.cafe24.com/board/select/" + pageNo + "?searchtype=both&" + "value=" + value.getText().toString());
                 }
 
                 HttpURLConnection con = (HttpURLConnection)url.openConnection();
