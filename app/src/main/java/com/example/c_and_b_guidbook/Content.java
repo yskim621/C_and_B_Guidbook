@@ -113,7 +113,7 @@ public class Content extends AppCompatActivity {
                             map.put("result", data.getString(0));
 
                             String temp = (String) map.get("result");
-                            Log.e("temp", temp);
+                            //Log.e("temp", temp);
 
 
                             //HTML parsing - html을 전부 펼쳐서 DOM 객체로 생성
